@@ -41,8 +41,8 @@
 
     <New id="httpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
         <Arg><Ref refid="httpSimpleConfig"/></Arg>
-        <!-- Uncomment if deploying behind a proxy so that Jetty honors X-Forwarded- headers
-             per https://www.eclipse.org/jetty/javadoc/current/org/eclipse/jetty/server/ForwardedRequestCustomizer.html
+        <!-- Uncomment if deploying behind a proxy so that Jetty honors X-Forwarded- headers 
+             per https://www.eclipse.org/jetty/javadoc/current/org/eclipse/jetty/server/ForwardedRequestCustomizer.html -->
 
         <Call name="addCustomizer">
             <Arg>
@@ -57,7 +57,7 @@
                 </New>
             </Arg>
         </Call>
-        -->
+        <!-- End of Uncomment -->
     </New>
 
     <New id="tlsHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
@@ -81,7 +81,7 @@
             </Arg>
         </Call>
         <!-- Uncomment if deploying behind a proxy so that Jetty honors X-Forwarded- headers
-             per https://www.eclipse.org/jetty/javadoc/current/org/eclipse/jetty/server/ForwardedRequestCustomizer.html
+             per https://www.eclipse.org/jetty/javadoc/current/org/eclipse/jetty/server/ForwardedRequestCustomizer.html -->
 
         <Call name="addCustomizer">
             <Arg>
@@ -96,7 +96,7 @@
                 </New>
             </Arg>
         </Call>
-        -->
+        <!-- End of uncomment -->
     </New>
 
     <New id="mutualAuthHttpConfig" class="org.eclipse.jetty.server.HttpConfiguration">
