@@ -1,83 +1,141 @@
 {
     "mappings" : [
         {
-            "name" : "HumanResources_Engineering",
-            "source" : "system/hr/account",
-            "target" : "system/engineering/account",
-            "correlationQuery" : {
-                "expressionTree" : {
-                    "all" : [
-                        "name"
-                    ]
-                },
-                "mapping" : "HumanResources_Engineering",
-                "type" : "text/javascript",
-                "file" : "ui/correlateTreeToQueryFilter.js"
-            },
-            "properties" : [
-                {
-                    "source" : "email",
-                    "target" : "name"
-                },
-                {
-                    "source" : "lastName",
-                    "target" : "lastname"
-                },
-                {
-                    "source" : "firstName",
-                    "target" : "firstname"
-                },
-                {
-                    "source" : "email",
-                    "target" : "email"
-                },
-                {
-                    "source" : "employeeNumber",
-                    "transform" : {
-                        "type" : "text/javascript",
-                        "source" : "(source.substring(0,1) === '6') ? 'internal/role/openidm-admin,internal/role/openidm-authorized' : 'internal/role/openidm-authorized';"
-                    },
-                    "target" : "roles"
-                },
-                {
-                    "default" : "N/A",
-                    "target" : "telephoneNumber"
-                }
-            ],
+            "icon" : null,
+            "name" : "systemPartnersAccount_systemWebportalAccount",
+            "source" : "system/Partners/account",
+            "target" : "system/Webportal/account",
             "policies" : [
                 {
-                    "situation" : "CONFIRMED",
-                    "action" : "UPDATE"
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
                 },
                 {
-                    "situation" : "FOUND",
-                    "action" : "UPDATE"
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
                 },
                 {
-                    "situation" : "ABSENT",
-                    "action" : "CREATE"
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
                 },
                 {
-                    "situation" : "AMBIGUOUS",
-                    "action" : "EXCEPTION"
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
                 },
                 {
-                    "situation" : "MISSING",
-                    "action" : "CREATE"
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
                 },
                 {
-                    "situation" : "SOURCE_MISSING",
-                    "action" : "DELETE"
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
                 },
                 {
-                    "situation" : "UNQUALIFIED",
-                    "action" : "IGNORE"
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
                 },
                 {
-                    "situation" : "UNASSIGNED",
-                    "action" : "DELETE"
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
                 }
-            ]
+            ],
+            "properties" : [
+                {
+                    "source" : "mail",
+                    "target" : "mail"
+                },
+                {
+                    "source" : "telephoneNumber",
+                    "target" : "telephoneNumber"
+                },
+                {
+                    "source" : "userPassword",
+                    "target" : "userPassword"
+                },
+                {
+                    "source" : "uid",
+                    "target" : "uid"
+                },
+                {
+                    "source" : "description",
+                    "target" : "description"
+                },
+                {
+                    "source" : "employeeType",
+                    "target" : "employeeType"
+                },
+                {
+                    "source" : "givenName",
+                    "target" : "givenName"
+                },
+                {
+                    "source" : "kbaInfo",
+                    "target" : "kbaInfo"
+                },
+                {
+                    "source" : "objectClass",
+                    "target" : "objectClass"
+                },
+                {
+                    "source" : "sn",
+                    "target" : "sn"
+                },
+                {
+                    "source" : "",
+                    "target" : "dn",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "let dn = \"\";\nlogger.warn(\">>> Script looking at user: \" + source.uid + \" Partner: \" + source.partnerOrg + \" <<<\");\nswitch (source.partnerOrg) {\n  case \"partner1.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner1.com,dc=partner,dc=example,dc=com\";\n    break;\n  case \"partner2.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner2.com,dc=partner,dc=example,dc=com\";\n    break;\n  case \"partner3.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner3.com,dc=partner,dc=example,dc=com\";\n    break;\n  case \"partner4.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner4.com,dc=partner,dc=example,dc=com\";\n}   \n\ndn;",
+                        "globals" : { }
+                    }
+                },
+                {
+                    "source" : "partnerOrg",
+                    "target" : "partnerOrg"
+                },
+                {
+                    "source" : "lastLoginTime",
+                    "target" : "lastLoginTime"
+                },
+                {
+                    "source" : "userRole",
+                    "target" : "userRole"
+                },
+                {
+                    "source" : "",
+                    "target" : "cn",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "source.givenName + ' ' + source.sn",
+                        "globals" : { }
+                    }
+                }
+            ],
+            "displayName" : "systemPartnersAccount_systemWebportalAccount",
+            "sourceQuery" : {
+                "_queryFilter" : "((userRole eq \"standard_user\" or userRole eq \"power_user\" or userRole eq \"lite_user\" or !(userRole eq \"UNKNOWN\")) and lastLoginTime ge \"20140101000000Z\")"
+            },
+            "consentRequired" : false
         }
     ]
 }
