@@ -1,7 +1,6 @@
 {
     "mappings" : [
         {
-            "icon" : null,
             "name" : "systemPartnersAccount_systemWebportalAccount",
             "source" : "system/Partners/account",
             "target" : "system/Webportal/account",
@@ -133,9 +132,27 @@
             ],
             "displayName" : "systemPartnersAccount_systemWebportalAccount",
             "sourceQuery" : {
-                "_queryFilter" : "((userRole eq \"standard_user\" or userRole eq \"power_user\" or userRole eq \"lite_user\" or !(userRole eq \"UNKNOWN\")) and lastLoginTime ge \"20140101000000Z\")"
+                "_queryFilter" : "((/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\" or !(/userRole eq \"UNKNOWN\")) and /lastLoginTime ge \"20140101000000Z\" and (partnerOrg eq \"partner1.com\" or partnerOrg eq \"partner2.com\" or partnerOrg eq \"partner3.com\" or partnerOrg eq \"partner4.com\"))"
             },
-            "consentRequired" : false
+            "targetQuery" : {
+                "_queryFilter" : "(/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\" or !(/userRole eq \"UNKNOWN\"))"
+            },
+            "correlationQuery" : [
+                {
+                    "file" : "ui/correlateTreeToQueryFilter.js",
+                    "type" : "text/javascript",
+                    "mapping" : "systemPartnersAccount_systemWebportalAccount",
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "all" : [
+                            "uid",
+                            "userRole"
+                        ]
+                    }
+                }
+            ],
+            "reconSourceQueryPageSize" : 100,
+            "clusteredSourceReconEnabled" : true
         }
     ]
 }

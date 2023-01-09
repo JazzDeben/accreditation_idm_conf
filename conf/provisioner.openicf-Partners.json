@@ -335,5 +335,6 @@
         "maintainPosixGroupMembership" : false,
         "removeLogEntryObjectClassFromFilter" : true,
         "respectResourcePasswordPolicyChangeAfterReset" : false
-    }
+    },
+    "resetSyncToken" : "last"
 }
