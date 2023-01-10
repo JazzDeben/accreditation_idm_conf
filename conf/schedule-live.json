@@ -1,0 +1,19 @@
+{
+    "type" : "simple",
+    "enabled" : true,
+    "endTime" : null,
+    "schedule" : null,
+    "persisted" : true,
+    "startTime" : null,
+    "recoverable" : false,
+    "repeatCount" : -1,
+    "invokeContext" : {
+        "action" : "liveSync",
+        "source" : "system/Partners/account"
+    },
+    "invokeService" : "provisioner",
+    "misfirePolicy" : "fireAndProceed",
+    "invokeLogLevel" : "info",
+    "repeatInterval" : 2000,
+    "concurrentExecution" : false
+}
