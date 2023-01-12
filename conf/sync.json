@@ -1,81 +1,539 @@
 {
     "mappings" : [
         {
-            "name" : "HumanResources_Engineering",
-            "source" : "system/hr/account",
-            "target" : "system/engineering/account",
-            "correlationQuery" : {
-                "expressionTree" : {
-                    "all" : [
-                        "name"
-                    ]
+            "name" : "systemPartnersAccount_systemWebportalAccount",
+            "source" : "system/Partners/account",
+            "target" : "system/Webportal/account",
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
                 },
-                "mapping" : "HumanResources_Engineering",
-                "type" : "text/javascript",
-                "file" : "ui/correlateTreeToQueryFilter.js"
-            },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
             "properties" : [
                 {
-                    "source" : "email",
+                    "source" : "mail",
+                    "target" : "mail"
+                },
+                {
+                    "source" : "telephoneNumber",
+                    "target" : "telephoneNumber"
+                },
+                {
+                    "source" : "userPassword",
+                    "target" : "userPassword"
+                },
+                {
+                    "source" : "uid",
+                    "target" : "uid"
+                },
+                {
+                    "source" : "description",
+                    "target" : "description"
+                },
+                {
+                    "source" : "employeeType",
+                    "target" : "employeeType"
+                },
+                {
+                    "source" : "givenName",
+                    "target" : "givenName"
+                },
+                {
+                    "source" : "kbaInfo",
+                    "target" : "kbaInfo"
+                },
+                {
+                    "source" : "objectClass",
+                    "target" : "objectClass"
+                },
+                {
+                    "source" : "sn",
+                    "target" : "sn"
+                },
+                {
+                    "source" : "",
+                    "target" : "dn",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "let dn = \"\";\nlogger.warn(\">>> Script looking at user: \" + source.uid + \" Partner: \" + source.partnerOrg + \" <<<\");\nswitch (source.partnerOrg) {\n  case \"partner1.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner1.com,dc=partner,dc=example,dc=com\";\n    break;\n  case \"partner2.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner2.com,dc=partner,dc=example,dc=com\";\n    break;\n  case \"partner3.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner3.com,dc=partner,dc=example,dc=com\";\n    break;\n  case \"partner4.com\":\n    logger.warn(\">>> Script Partner is : \" + source.partnerOrg);\n    dn = \"uid=\"+source.uid+\",ou=partner4.com,dc=partner,dc=example,dc=com\";\n}   \n\ndn;",
+                        "globals" : { }
+                    }
+                },
+                {
+                    "source" : "partnerOrg",
+                    "target" : "partnerOrg"
+                },
+                {
+                    "source" : "lastLoginTime",
+                    "target" : "lastLoginTime"
+                },
+                {
+                    "source" : "userRole",
+                    "target" : "userRole"
+                },
+                {
+                    "source" : "",
+                    "target" : "cn",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "source.givenName + ' ' + source.sn",
+                        "globals" : { }
+                    }
+                }
+            ],
+            "displayName" : "systemPartnersAccount_systemWebportalAccount",
+            "sourceQuery" : {
+                "_queryFilter" : "((/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\" or !(/userRole eq \"UNKNOWN\")) and /lastLoginTime ge \"20140101000000Z\" and (partnerOrg eq \"partner1.com\" or partnerOrg eq \"partner2.com\" or partnerOrg eq \"partner3.com\" or partnerOrg eq \"partner4.com\"))"
+            },
+            "targetQuery" : {
+                "_queryFilter" : "(/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\" or !(/userRole eq \"UNKNOWN\"))"
+            },
+            "correlationQuery" : [
+                {
+                    "file" : "ui/correlateTreeToQueryFilter.js",
+                    "type" : "text/javascript",
+                    "mapping" : "systemPartnersAccount_systemWebportalAccount",
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "all" : [
+                            "uid",
+                            "userRole"
+                        ]
+                    }
+                }
+            ],
+            "reconSourceQueryPageSize" : 100,
+            "clusteredSourceReconEnabled" : true
+        },
+        {
+            "icon" : null,
+            "name" : "systemActivedirectoryAccount_managedUser",
+            "source" : "system/ActiveDirectory/account",
+            "target" : "managed/user",
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "properties" : [
+                {
+                    "source" : "sAMAccountName",
+                    "target" : "userName"
+                },
+                {
+                    "source" : "givenName",
+                    "target" : "givenName"
+                },
+                {
+                    "source" : "sn",
+                    "target" : "sn"
+                },
+                {
+                    "source" : "",
+                    "target" : "mail",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "let mail = \"\";\nlogger.warn(\">>> SCRIPT EMAIL <<<\");\nif (source.mail == undefined){\n  logger.warn(\">>> SCRIPT EMAIL mail undefined <<<\");\n  mail = findEmailInOtherAttribute();\n} else {\n  logger.warn(\">>> SCRIPT EMAIL mail defined <<<\");\n  if (source.mail.indexOf(\"@\" > 0)){\n    logger.warn(\">>> SCRIPT EMAIL mail: \" + source.mail + \" <<<\");\n    mail = source.mail ;\n  } else {\n    logger.warn(\">>> SCRIPT EMAIL mail defined but rejected <<<\");\n    mail = findEmailInOtherAttribute();\n  }\n}\n\nfunction findEmailInOtherAttribute(){\n  let proxyAddress = \"\";\n  logger.warn(\">>> SCRIPT EMAIL looking for proxyAddresses attribute value <<<\");\n  if ((source.proxyAddresses != undefined) && (Array.isArray(source.proxyAddresses))){\n    if(source.proxyAddresses[0] != undefined){\n      if((source.proxyAddresses[0].indexOf(\"@\") > 0) && (source.proxyAddresses[0].indexOf(\":\") > 0)){\n        logger.warn(\">>> SCRIPT EMAIL proxyAddresses value is: \" + source.proxyAddresses[0] + \" <<<\");\n        proxyAddress = source.proxyAddresses[0].substring((source.proxyAddresses[0].indexOf(\":\") + 1), source.proxyAddresses[0].length);\n      } else {\n        logger.warn(\">>> SCRIPT EMAIL proxyAddresses not valid: \" + source.proxyAddresses[0] + \" <<<\");\n      }\n    } else {\n      logger.warn(\">>> SCRIPT EMAIL proxyAddresses is undefined <<<\");\n    }\n  }\n  return proxyAddress;\n}\n\nmail;",
+                        "globals" : { }
+                    }
+                },
+                {
+                    "source" : "employeeID",
+                    "target" : "employeeid"
+                },
+                {
+                    "source" : "cn",
+                    "target" : "cn"
+                },
+                {
+                    "source" : "displayName",
                     "target" : "name"
                 },
                 {
-                    "source" : "lastName",
-                    "target" : "lastname"
-                },
-                {
-                    "source" : "firstName",
-                    "target" : "firstname"
-                },
-                {
-                    "source" : "email",
-                    "target" : "email"
-                },
-                {
-                    "source" : "employeeNumber",
+                    "source" : "",
+                    "target" : "password",
                     "transform" : {
                         "type" : "text/javascript",
-                        "source" : "(source.substring(0,1) === '6') ? 'internal/role/openidm-admin,internal/role/openidm-authorized' : 'internal/role/openidm-authorized';"
-                    },
-                    "target" : "roles"
+                        "source" : "let pwd = openidm.read(\"endpoint/passwordGenerator\");\nlogger.warn(\">>> SCRIPT password for \" + source.employeeID + \" is: \" + pwd.password + \" <<<\");\npwd.password;",
+                        "globals" : { }
+                    }
                 },
                 {
-                    "default" : "N/A",
-                    "target" : "telephoneNumber"
+                    "target" : "validMail",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/.test(source.mail)) ? true : false;"
+                    },
+                    "source" : "",
+                    "default" : false
                 }
             ],
+            "displayName" : "systemActivedirectoryAccount_managedUser",
+            "sourceQuery" : {
+                "_queryFilter" : "(employeeID pr and !(displayName sw \"ADMIN\"))"
+            },
+            "targetQuery" : {
+                "_queryFilter" : "/employeeID pr"
+            },
+            "consentRequired" : false,
+            "correlationQuery" : [
+                {
+                    "file" : "ui/correlateTreeToQueryFilter.js",
+                    "type" : "text/javascript",
+                    "mapping" : "systemActivedirectoryAccount_managedUser",
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "any" : [
+                            "employeeid"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "icon" : null,
+            "name" : "systemMysql__ACCOUNT___managedUser",
+            "source" : "system/MySQL/__ACCOUNT__",
+            "target" : "managed/user",
             "policies" : [
                 {
-                    "situation" : "CONFIRMED",
-                    "action" : "UPDATE"
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
                 },
                 {
-                    "situation" : "FOUND",
-                    "action" : "UPDATE"
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
                 },
                 {
-                    "situation" : "ABSENT",
-                    "action" : "CREATE"
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
                 },
                 {
-                    "situation" : "AMBIGUOUS",
-                    "action" : "EXCEPTION"
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
                 },
                 {
-                    "situation" : "MISSING",
-                    "action" : "CREATE"
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
                 },
                 {
-                    "situation" : "SOURCE_MISSING",
-                    "action" : "DELETE"
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
                 },
                 {
-                    "situation" : "UNQUALIFIED",
-                    "action" : "IGNORE"
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
                 },
                 {
-                    "situation" : "UNASSIGNED",
-                    "action" : "DELETE"
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "properties" : [
+                {
+                    "source" : "__NAME__",
+                    "target" : "employeeid",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "/*if(target.employeeid != undefined){\n  logger.warn(\">>>SCRIPT EMPLOYEEID TARGET: \" + target.employeeid + \" <<<\");\n} else {\n  logger.warn(\">>>SCRIPT EMPLOYEEID NOT FOUND HERE <<<\");\n}*/\n\nlogger.warn(\">>> ************** SCRIPT EMPLOYEEID GETTING: \" + source + \" ************** <<<\");\nlet id = source;\nwhile(id.length < 6){\n  id = \"0\" + id;\n}\nlogger.warn(\">>> SCRIPT EMPLOYEEID CHANGE IT TO: \" + id + \" <<<\");\nid;",
+                        "globals" : { }
+                    }
+                },
+                {
+                    "source" : "city",
+                    "target" : "city"
+                },
+                {
+                    "source" : "address",
+                    "target" : "address"
+                },
+                {
+                    "source" : "state",
+                    "target" : "state"
+                },
+                {
+                    "source" : "country",
+                    "target" : "country"
+                },
+                {
+                    "source" : "phone",
+                    "target" : "telephone"
+                },
+                {
+                    "source" : "zip",
+                    "target" : "zip"
+                },
+                {
+                    "source" : "dob",
+                    "target" : "dob"
+                },
+                {
+                    "source" : "",
+                    "target" : "validPhone",
+                    "default" : false,
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "(source.phone.search(/[a-zA-Z]/) >= 0) ? false : true;",
+                        "globals" : { }
+                    }
+                }
+            ],
+            "displayName" : "systemMysql__ACCOUNT___managedUser",
+            "consentRequired" : false,
+            "correlationQuery" : [
+                {
+                    "type" : "text/javascript",
+                    "source" : "logger.warn(\">>> ************ CORRELATION SCRIPT *********** <<<\");\nlogger.warn(\">>> SOURCE NAME: \" + source.__NAME__ + \" <<<\");\nlet id = source.__NAME__;\nwhile(id.length < 6){\n  id = \"0\" + id;\n}\nlogger.warn(\">>> SOURCE ID: \" + id + \" <<<\");\n\nlet query = {'_queryFilter': 'employeeid eq \\\"' + id +'\\\"' };\nquery;\n",
+                    "globals" : { },
+                    "linkQualifier" : "default"
+                }
+            ]
+        },
+        {
+            "icon" : null,
+            "name" : "managedUser_systemWebportalAccount",
+            "source" : "managed/user",
+            "target" : "system/Webportal/account",
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "properties" : [
+                {
+                    "source" : "mail",
+                    "target" : "mail"
+                },
+                {
+                    "source" : "userName",
+                    "target" : "uid"
+                },
+                {
+                    "source" : "givenName",
+                    "target" : "givenName"
+                },
+                {
+                    "source" : "employeeid",
+                    "target" : "uid"
+                },
+                {
+                    "source" : "cn",
+                    "target" : "cn"
+                },
+                {
+                    "source" : "sn",
+                    "target" : "sn"
+                },
+                {
+                    "source" : "telephone",
+                    "target" : "telephoneNumber"
+                },
+                {
+                    "target" : "registeredAddress",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "source.address + \", \" + source.city + \", \" + source.state + \", \" + source.zip + \", \" + source.country"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "dn",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "\"uid=\"+source.employeeid+\",ou=People,dc=employees,dc=example,dc=com\";"
+                    },
+                    "source" : ""
+                }
+            ],
+            "displayName" : "managedUser_systemWebportalAccount",
+            "consentRequired" : false,
+            "sourceQuery" : {
+                "_queryFilter" : "(!(/validPhone eq \"false\") and !(validMail eq \"false\") and employeeid pr)"
+            },
+            "targetQuery" : {
+                "_queryFilter" : "!(/registeredAddress sw \"0\")"
+            },
+            "correlationQuery" : [
+                {
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "all" : [
+                            "uid"
+                        ]
+                    },
+                    "mapping" : "managedUser_systemWebportalAccount",
+                    "type" : "text/javascript",
+                    "file" : "ui/correlateTreeToQueryFilter.js"
                 }
             ]
         }

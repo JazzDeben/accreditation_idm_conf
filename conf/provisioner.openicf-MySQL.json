@@ -1,0 +1,166 @@
+{
+    "_id" : "provisioner.openicf/MySQL",
+    "enabled" : true,
+    "objectTypes" : {
+        "__ACCOUNT__" : {
+            "id" : "__ACCOUNT__",
+            "type" : "object",
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "nativeType" : "__ACCOUNT__",
+            "properties" : {
+                "dob" : {
+                    "type" : "string",
+                    "nativeName" : "dob",
+                    "nativeType" : "string"
+                },
+                "zip" : {
+                    "type" : "string",
+                    "nativeName" : "zip",
+                    "nativeType" : "string"
+                },
+                "city" : {
+                    "type" : "string",
+                    "nativeName" : "city",
+                    "nativeType" : "string"
+                },
+                "phone" : {
+                    "type" : "string",
+                    "nativeName" : "phone",
+                    "nativeType" : "string"
+                },
+                "state" : {
+                    "type" : "string",
+                    "nativeName" : "state",
+                    "nativeType" : "string"
+                },
+                "address" : {
+                    "type" : "string",
+                    "nativeName" : "address",
+                    "nativeType" : "string"
+                },
+                "country" : {
+                    "type" : "string",
+                    "nativeName" : "country",
+                    "nativeType" : "string"
+                },
+                "__NAME__" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
+                }
+            }
+        }
+    },
+    "connectorRef" : {
+        "bundleName" : "org.forgerock.openicf.connectors.databasetable-connector",
+        "systemType" : "provisioner.openicf",
+        "displayName" : "Database Table Connector",
+        "bundleVersion" : "1.5.20.9",
+        "connectorName" : "org.identityconnectors.databasetable.DatabaseTableConnector",
+        "connectorHostRef" : ""
+    },
+    "operationTimeout" : {
+        "GET" : -1,
+        "SYNC" : -1,
+        "TEST" : -1,
+        "CREATE" : -1,
+        "DELETE" : -1,
+        "SCHEMA" : -1,
+        "SEARCH" : -1,
+        "UPDATE" : -1,
+        "VALIDATE" : -1,
+        "AUTHENTICATE" : -1,
+        "RESOLVEUSERNAME" : -1,
+        "SCRIPT_ON_RESOURCE" : -1,
+        "SCRIPT_ON_CONNECTOR" : -1
+    },
+    "poolConfigOption" : {
+        "maxIdle" : 10,
+        "maxWait" : 150000,
+        "minIdle" : 1,
+        "maxObjects" : 10,
+        "minEvictableIdleTimeMillis" : 120000
+    },
+    "resultsHandlerConfig" : {
+        "enableCaseInsensitiveFilter" : false,
+        "enableFilteredResultsHandler" : false,
+        "enableNormalizingResultsHandler" : false,
+        "enableAttributesToGetSearchResultsHandler" : true
+    },
+    "configurationProperties" : {
+        "url" : "jdbc:mysql://mysql.example.com:3306/employees?useSSL=false",
+        "name" : "Tomcat Connection Pool[1-2119519425]",
+        "table" : "employees",
+        "maxAge" : "0",
+        "initSQL" : null,
+        "maxIdle" : "100",
+        "maxWait" : "30000",
+        "minIdle" : "10",
+        "quoting" : "NONE",
+        "useLock" : false,
+        "password" : {
+            "$crypto" : {
+                "type" : "x-simple-encryption",
+                "value" : {
+                    "iv" : "rWHFmUzTDWAXJiOiEygpNA==",
+                    "mac" : "KqJAB0BoZ639pEGl6ON8+g==",
+                    "data" : "BYQTJ535btBLJj2wb68tpg==",
+                    "salt" : "4H+rkDJve3egByulmFgNBQ==",
+                    "cipher" : "AES/CBC/PKCS5Padding",
+                    "keySize" : 16,
+                    "purpose" : "idm.config.encryption",
+                    "stableId" : "openidm-sym-default"
+                }
+            }
+        },
+        "username" : "mysql_user",
+        "allNative" : false,
+        "fairQueue" : true,
+        "keyColumn" : "employeeid",
+        "maxActive" : "100",
+        "useEquals" : true,
+        "jmxEnabled" : true,
+        "initialSize" : "10",
+        "logAbandoned" : false,
+        "testOnBorrow" : false,
+        "testOnReturn" : false,
+        "disablePaging" : false,
+        "inclusiveSync" : false,
+        "testOnConnect" : false,
+        "commitOnReturn" : false,
+        "defaultCatalog" : null,
+        "passwordColumn" : null,
+        "suspectTimeout" : 0,
+        "changeLogColumn" : null,
+        "defaultReadOnly" : null,
+        "driverClassName" : "com.mysql.jdbc.Driver",
+        "removeAbandoned" : false,
+        "validationQuery" : null,
+        "jdbcInterceptors" : null,
+        "nativeTimestamps" : false,
+        "rollbackOnReturn" : false,
+        "suppressPassword" : true,
+        "defaultAutoCommit" : null,
+        "enableEmptyString" : true,
+        "useStatementFacade" : true,
+        "validationInterval" : "3000",
+        "validatorClassName" : null,
+        "logValidationErrors" : false,
+        "returnGeneratedKeys" : true,
+        "connectionProperties" : null,
+        "numTestsPerEvictionRun" : 0,
+        "removeAbandonedTimeout" : 60,
+        "validationQueryTimeout" : "-1",
+        "propagateInterruptState" : false,
+        "rethrowAllSQLExceptions" : true,
+        "alternateUsernameAllowed" : false,
+        "ignoreExceptionOnPreLoad" : false,
+        "abandonWhenPercentageFull" : 0,
+        "minEvictableIdleTimeMillis" : "60000",
+        "defaultTransactionIsolation" : -1,
+        "timeBetweenEvictionRunsMillis" : "5000",
+        "useDisposableConnectionFacade" : true,
+        "accessToUnderlyingConnectionAllowed" : true
+    }
+}
