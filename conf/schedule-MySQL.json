@@ -1,0 +1,18 @@
+{
+    "type" : "cron",
+    "isCron" : true,
+    "enabled" : true,
+    "endTime" : null,
+    "schedule" : "0 20 0 * * ?",
+    "timeZone" : null,
+    "persisted" : true,
+    "startTime" : null,
+    "invokeContext" : {
+        "action" : "reconcile",
+        "mapping" : "systemMysql__ACCOUNT___managedUser"
+    },
+    "invokeService" : "sync",
+    "misfirePolicy" : "fireAndProceed",
+    "invokeLogLevel" : "info",
+    "concurrentExecution" : false
+}
