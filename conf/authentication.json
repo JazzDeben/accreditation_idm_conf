@@ -1,65 +1,120 @@
 {
+    "_id" : "authentication",
     "serverAuthContext" : {
-        "sessionModule" : {
-            "name" : "JWT_SESSION",
-            "properties" : {
-                "maxTokenLifeMinutes" : 120,
-                "tokenIdleTimeMinutes" : 30,
-                "sessionOnly" : true,
-                "isHttpOnly" : true,
-                "enableDynamicRoles" : false
-            }
-        },
         "authModules" : [
             {
                 "name" : "STATIC_USER",
+                "enabled" : true,
                 "properties" : {
-                    "queryOnResource" : "internal/user",
+                    "password" : {
+                        "$crypto" : {
+                            "type" : "x-simple-encryption",
+                            "value" : {
+                                "iv" : "SE/kuQNxoW96VGOQ1qYVvA==",
+                                "mac" : "R/Rq0NRJwxmYrYUdWBVsEw==",
+                                "data" : "sHEbgomenwm1Kul51RSBmA==",
+                                "salt" : "rhY/woGZxd9hYz9XyzCnjg==",
+                                "cipher" : "AES/CBC/PKCS5Padding",
+                                "keySize" : 16,
+                                "purpose" : "idm.config.encryption",
+                                "stableId" : "openidm-sym-default"
+                            }
+                        }
+                    },
                     "username" : "anonymous",
-                    "password" : "anonymous",
+                    "queryOnResource" : "internal/user",
                     "defaultUserRoles" : [
                         "internal/role/openidm-reg"
                     ]
-                },
-                "enabled" : true
+                }
             },
             {
                 "name" : "STATIC_USER",
+                "enabled" : true,
                 "properties" : {
-                    "queryOnResource" : "internal/user",
-                    "username" : "openidm-admin",
                     "password" : "&{openidm.admin.password}",
+                    "username" : "openidm-admin",
+                    "queryOnResource" : "internal/user",
                     "defaultUserRoles" : [
                         "internal/role/openidm-authorized",
                         "internal/role/openidm-admin"
                     ]
-                },
-                "enabled" : true
+                }
             },
             {
                 "name" : "MANAGED_USER",
+                "enabled" : true,
                 "properties" : {
-                    "augmentSecurityContext" : {
-                        "type" : "text/javascript",
-                        "source" : "var augmentYield = require('auth/customAuthz').setProtectedAttributes(security);require('auth/orgPrivileges').assignPrivilegesToUser(resource, security, properties, subjectMapping, privileges, 'privileges', 'privilegeAssignments', augmentYield);"
-                    },
                     "queryId" : "credential-query",
-                    "queryOnResource" : "managed/user",
                     "propertyMapping" : {
-                        "authenticationId" : "username",
-                        "userCredential" : "password",
                         "userRoles" : "authzRoles",
+                        "userCredential" : "password",
+                        "authenticationId" : "username",
                         "additionalUserFields" : [
                             "adminOfOrg",
                             "ownerOfOrg"
                         ]
                     },
+                    "queryOnResource" : "managed/user",
                     "defaultUserRoles" : [
+                        "internal/role/openidm-authorized"
+                    ],
+                    "augmentSecurityContext" : {
+                        "type" : "text/javascript",
+                        "source" : "var augmentYield = require('auth/customAuthz').setProtectedAttributes(security);require('auth/orgPrivileges').assignPrivilegesToUser(resource, security, properties, subjectMapping, privileges, 'privileges', 'privilegeAssignments', augmentYield);"
+                    }
+                }
+            },
+            {
+                "name" : "STATIC_USER",
+                "enabled" : true,
+                "properties" : {
+                    "password" : {
+                        "$crypto" : {
+                            "type" : "x-simple-encryption",
+                            "value" : {
+                                "iv" : "DfwQkWre8Bwxqp++kCgdNQ==",
+                                "mac" : "vFnWFZ0Xdt0riJ4jfqqfDA==",
+                                "data" : "7Sy5tRDmXL2HvhC217L+Gg==",
+                                "salt" : "XwKLcDmaADOgeaHvHimJ4g==",
+                                "cipher" : "AES/CBC/PKCS5Padding",
+                                "keySize" : 16,
+                                "purpose" : "idm.config.encryption",
+                                "stableId" : "openidm-sym-default"
+                            }
+                        }
+                    },
+                    "username" : "ds-password-sync-plugin",
+                    "queryOnResource" : "internal/user",
+                    "defaultUserRoles" : [
+                        "internal/role/openidm-admin",
+                        "internal/role/openidm-authorized",
+                        "internal/role/openidm-cert",
+                        "internal/role/openidm-reg"
+                    ]
+                }
+            },
+            {
+                "name" : "CLIENT_CERT",
+                "properties" : {
+                    "queryOnResource" : "managed/user",
+                    "defaultUserRoles" : [
+                        "internal/role/openidm-cert",
                         "internal/role/openidm-authorized"
                     ]
                 },
                 "enabled" : true
             }
-        ]
+        ],
+        "sessionModule" : {
+            "name" : "JWT_SESSION",
+            "properties" : {
+                "isHttpOnly" : true,
+                "sessionOnly" : true,
+                "enableDynamicRoles" : false,
+                "maxTokenLifeMinutes" : 120,
+                "tokenIdleTimeMinutes" : 30
+            }
+        }
     }
 }

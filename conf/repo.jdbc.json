@@ -4,7 +4,9 @@
     "maxBatchSize" : 100,
     "maxTxRetry" : 5,
     "queries" : {
-        "genericTables" : { },
+        "genericTables" : {
+            "for-employeeid" : "SELECT obj.objectid, obj.rev, obj.fullobject::text FROM ${_dbSchema}.${_mainTable} obj INNER JOIN ${_dbSchema}.objecttypes objtype ON objtype.id = obj.objecttypes_id WHERE jsonb_extract_path_text(fullobject, 'employeeid') = ${uid} AND objtype.objecttype = ${_resource}"
+        },
         "explicitTables" : { },
         "validInRelationshipQuery" : [ ]
     },

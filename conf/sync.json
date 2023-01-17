@@ -257,14 +257,14 @@
                     }
                 },
                 {
+                    "source" : "",
                     "target" : "validMail",
+                    "default" : false,
                     "transform" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/.test(source.mail)) ? true : false;"
-                    },
-                    "source" : "",
-                    "default" : false
+                        "source" : "(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/.test(source.mail)) ? true : false;",
+                        "globals" : { }
+                    }
                 }
             ],
             "displayName" : "systemActivedirectoryAccount_managedUser",
@@ -497,43 +497,57 @@
                     "target" : "telephoneNumber"
                 },
                 {
+                    "source" : "",
                     "target" : "registeredAddress",
                     "transform" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "source.address + \", \" + source.city + \", \" + source.state + \", \" + source.zip + \", \" + source.country"
-                    },
-                    "source" : ""
+                        "source" : "source.address + \", \" + source.city + \", \" + source.state + \", \" + source.zip + \", \" + source.country",
+                        "globals" : { }
+                    }
                 },
                 {
+                    "source" : "",
                     "target" : "dn",
                     "transform" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "\"uid=\"+source.employeeid+\",ou=People,dc=employees,dc=example,dc=com\";"
+                        "source" : "\"uid=\"+source.employeeid+\",ou=People,dc=employees,dc=example,dc=com\";",
+                        "globals" : { }
+                    }
+                },
+                {
+                    "source" : "password",
+                    "target" : "userPassword",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "source" : "object.password != null",
+                        "globals" : { }
                     },
-                    "source" : ""
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "openidm.decrypt(source);",
+                        "globals" : { }
+                    }
                 }
             ],
             "displayName" : "managedUser_systemWebportalAccount",
-            "consentRequired" : false,
             "sourceQuery" : {
                 "_queryFilter" : "(!(/validPhone eq \"false\") and !(validMail eq \"false\") and employeeid pr)"
             },
             "targetQuery" : {
                 "_queryFilter" : "!(/registeredAddress sw \"0\")"
             },
+            "consentRequired" : false,
             "correlationQuery" : [
                 {
+                    "file" : "ui/correlateTreeToQueryFilter.js",
+                    "type" : "text/javascript",
+                    "mapping" : "managedUser_systemWebportalAccount",
                     "linkQualifier" : "default",
                     "expressionTree" : {
                         "all" : [
                             "uid"
                         ]
-                    },
-                    "mapping" : "managedUser_systemWebportalAccount",
-                    "type" : "text/javascript",
-                    "file" : "ui/correlateTreeToQueryFilter.js"
+                    }
                 }
             ]
         }
