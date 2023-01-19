@@ -89,9 +89,9 @@
             }
         },
         "account" : {
-            "id" : "__ACCOUNT__",
-            "type" : "object",
             "$schema" : "http://json-schema.org/draft-03/schema",
+            "type" : "object",
+            "id" : "__ACCOUNT__",
             "nativeType" : "__ACCOUNT__",
             "properties" : {
                 "cn" : {
@@ -237,6 +237,12 @@
                     "required" : false,
                     "nativeName" : "registeredAddress",
                     "nativeType" : "string"
+                },
+                "homePostalAddress" : {
+                    "type" : "string",
+                    "nativeName" : "homePostalAddress",
+                    "nativeType" : "string",
+                    "required" : false
                 }
             }
         }
