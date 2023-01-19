@@ -238,9 +238,9 @@
                     "nativeName" : "registeredAddress",
                     "nativeType" : "string"
                 },
-                "homePostalAddress" : {
+                "teletextTerminalIdentifier" : {
                     "type" : "string",
-                    "nativeName" : "homePostalAddress",
+                    "nativeName" : "teletextTerminalIdentifier",
                     "nativeType" : "string",
                     "required" : false
                 }
