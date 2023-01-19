@@ -139,9 +139,9 @@
             }
         },
         "account" : {
-            "id" : "__ACCOUNT__",
-            "type" : "object",
             "$schema" : "http://json-schema.org/draft-03/schema",
+            "type" : "object",
+            "id" : "__ACCOUNT__",
             "nativeType" : "__ACCOUNT__",
             "properties" : {
                 "c" : {
@@ -170,19 +170,15 @@
                 },
                 "dn" : {
                     "type" : "string",
-                    "required" : false,
+                    "required" : true,
                     "nativeName" : "__NAME__",
-                    "nativeType" : "string",
-                    "flags" : [ ],
-                    "runAsUser" : false
+                    "nativeType" : "string"
                 },
                 "sn" : {
                     "type" : "string",
-                    "required" : false,
+                    "required" : true,
                     "nativeName" : "sn",
-                    "nativeType" : "string",
-                    "flags" : [ ],
-                    "runAsUser" : false
+                    "nativeType" : "string"
                 },
                 "st" : {
                     "type" : "string",
@@ -202,16 +198,6 @@
                 "title" : {
                     "type" : "string",
                     "nativeName" : "title",
-                    "nativeType" : "string"
-                },
-                "member" : {
-                    "type" : "array",
-                    "items" : {
-                        "type" : "string",
-                        "nativeType" : "string"
-                    },
-                    "required" : false,
-                    "nativeName" : "member",
                     "nativeType" : "string"
                 },
                 "mobile" : {
@@ -511,6 +497,16 @@
                     "type" : "string",
                     "nativeName" : "physicalDeliveryOfficeName",
                     "nativeType" : "string"
+                },
+                "member" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "string",
+                        "nativeType" : "string"
+                    },
+                    "nativeName" : "member",
+                    "nativeType" : "string",
+                    "required" : false
                 }
             }
         }
@@ -568,14 +564,14 @@
             "$crypto" : {
                 "type" : "x-simple-encryption",
                 "value" : {
-                    "iv" : "Ovj8tXRTQRbSC86p2CfoJw==",
-                    "mac" : "OorOCOhRD7CloxQ7qo0r/A==",
-                    "data" : "lK11iOwgOvbNIyeAfUdcvw==",
-                    "salt" : "qQ6VEcXU0tpVVrxOU7yNEg==",
                     "cipher" : "AES/CBC/PKCS5Padding",
+                    "stableId" : "openidm-sym-default",
+                    "salt" : "1P+t/AfMUTp/xo7vItVMBw==",
+                    "data" : "WWur5XXOeREYvyBoF8B5AA==",
                     "keySize" : 16,
                     "purpose" : "idm.config.encryption",
-                    "stableId" : "openidm-sym-default"
+                    "iv" : "lVsmH2qgQ17FdoNjMfP8RQ==",
+                    "mac" : "cHDZejZza8O++GFtbuDe5Q=="
                 }
             }
         },
