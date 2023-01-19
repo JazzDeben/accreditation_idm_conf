@@ -139,9 +139,9 @@
             }
         },
         "account" : {
-            "$schema" : "http://json-schema.org/draft-03/schema",
-            "type" : "object",
             "id" : "__ACCOUNT__",
+            "type" : "object",
+            "$schema" : "http://json-schema.org/draft-03/schema",
             "nativeType" : "__ACCOUNT__",
             "properties" : {
                 "c" : {
@@ -170,15 +170,19 @@
                 },
                 "dn" : {
                     "type" : "string",
-                    "required" : true,
+                    "required" : false,
                     "nativeName" : "__NAME__",
-                    "nativeType" : "string"
+                    "nativeType" : "string",
+                    "flags" : [ ],
+                    "runAsUser" : false
                 },
                 "sn" : {
                     "type" : "string",
-                    "required" : true,
+                    "required" : false,
                     "nativeName" : "sn",
-                    "nativeType" : "string"
+                    "nativeType" : "string",
+                    "flags" : [ ],
+                    "runAsUser" : false
                 },
                 "st" : {
                     "type" : "string",
@@ -198,6 +202,16 @@
                 "title" : {
                     "type" : "string",
                     "nativeName" : "title",
+                    "nativeType" : "string"
+                },
+                "member" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "string",
+                        "nativeType" : "string"
+                    },
+                    "required" : false,
+                    "nativeName" : "member",
                     "nativeType" : "string"
                 },
                 "mobile" : {
@@ -497,16 +511,6 @@
                     "type" : "string",
                     "nativeName" : "physicalDeliveryOfficeName",
                     "nativeType" : "string"
-                },
-                "member" : {
-                    "type" : "array",
-                    "items" : {
-                        "type" : "string",
-                        "nativeType" : "string"
-                    },
-                    "nativeName" : "member",
-                    "nativeType" : "string",
-                    "required" : false
                 }
             }
         }
