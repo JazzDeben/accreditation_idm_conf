@@ -1,0 +1,21 @@
+{
+    "host" : "idm1.example.com",
+    "port" : 4655,
+    "timeout" : 300000,
+    "writetimeout" : 300000,
+    "connectiontimeout" : 300000,
+    "auth" : {
+        "enable" : false,
+        "username" : ""
+    },
+    "starttls" : {
+        "enable" : false
+    },
+    "ssl" : {
+        "enable" : false
+    },
+    "from" : "admin@idm.example.com",
+    "debug" : false,
+    "smtpProperties" : [ ],
+    "threadPoolSize" : 20
+}

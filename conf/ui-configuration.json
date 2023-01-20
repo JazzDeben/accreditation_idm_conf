@@ -1,28 +1,30 @@
 {
     "configuration" : {
-        "selfRegistration" : false,
-        "passwordReset" : false,
-        "forgotUsername" : false,
         "lang" : "en",
-        "passwordResetLink" : "",
         "roles" : {
-            "internal/role/openidm-authorized" : "ui-user",
-            "internal/role/openidm-admin" : "ui-admin"
+            "internal/role/openidm-admin" : "ui-admin",
+            "internal/role/openidm-authorized" : "ui-user"
         },
+        "kbaEnabled" : false,
+        "passwordReset" : true,
+        "forgotUsername" : false,
+        "selfRegistration" : false,
         "notificationTypes" : {
             "info" : {
                 "name" : "common.notification.types.info",
                 "iconPath" : "images/notifications/info.png"
             },
-            "warning" : {
-                "name" : "common.notification.types.warning",
-                "iconPath" : "images/notifications/warning.png"
-            },
             "error" : {
                 "name" : "common.notification.types.error",
                 "iconPath" : "images/notifications/error.png"
+            },
+            "warning" : {
+                "name" : "common.notification.types.warning",
+                "iconPath" : "images/notifications/warning.png"
             }
         },
+        "passwordResetLink" : "",
+        "kbaVerificationEnabled" : false,
         "defaultNotificationType" : "info"
     }
 }
