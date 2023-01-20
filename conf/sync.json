@@ -155,7 +155,6 @@
             "clusteredSourceReconEnabled" : true
         },
         {
-            "icon" : null,
             "name" : "systemActivedirectoryAccount_managedUser",
             "source" : "system/ActiveDirectory/account",
             "target" : "managed/user",
@@ -274,7 +273,6 @@
             "targetQuery" : {
                 "_queryFilter" : "/employeeID pr"
             },
-            "consentRequired" : false,
             "correlationQuery" : [
                 {
                     "file" : "ui/correlateTreeToQueryFilter.js",
@@ -287,10 +285,10 @@
                         ]
                     }
                 }
-            ]
+            ],
+            "clusteredSourceReconEnabled" : true
         },
         {
-            "icon" : null,
             "name" : "systemMysql__ACCOUNT___managedUser",
             "source" : "system/MySQL/__ACCOUNT__",
             "target" : "managed/user",
@@ -398,7 +396,6 @@
                 }
             ],
             "displayName" : "systemMysql__ACCOUNT___managedUser",
-            "consentRequired" : false,
             "correlationQuery" : [
                 {
                     "type" : "text/javascript",
@@ -406,10 +403,10 @@
                     "globals" : { },
                     "linkQualifier" : "default"
                 }
-            ]
+            ],
+            "clusteredSourceReconEnabled" : true
         },
         {
-            "icon" : null,
             "name" : "managedUser_systemWebportalAccount",
             "source" : "managed/user",
             "target" : "system/Webportal/account",
@@ -536,7 +533,6 @@
             "targetQuery" : {
                 "_queryFilter" : "!(/registeredAddress sw \"0\")"
             },
-            "consentRequired" : false,
             "correlationQuery" : [
                 {
                     "file" : "ui/correlateTreeToQueryFilter.js",
@@ -549,10 +545,10 @@
                         ]
                     }
                 }
-            ]
+            ],
+            "clusteredSourceReconEnabled" : true
         },
         {
-            "icon" : null,
             "name" : "managedUser_systemActivedirectoryAccount",
             "links" : "systemActivedirectoryAccount_managedUser",
             "source" : "managed/user",
@@ -613,44 +609,44 @@
             ],
             "properties" : [
                 {
+                    "source" : "",
                     "target" : "password",
                     "condition" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "object.password != null"
+                        "source" : "object.password != null",
+                        "globals" : { }
                     },
                     "transform" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "logger.warn(\">>> AD SCRIPT DECODING PASSWORD <<<\");\nlogger.warn(\">>> AD SCRIPT DECODING: \" + openidm.decrypt(source.password) + \" <<<\");\nlogger.warn(\">>> AD SCRIPT USER: \" + source.userName + \" <<<\");\nopenidm.decrypt(source.password);"
-                    },
-                    "source" : ""
+                        "source" : "logger.warn(\">>> AD SCRIPT DECODING PASSWORD <<<\");\nlogger.warn(\">>> AD SCRIPT DECODING: \" + openidm.decrypt(source.password) + \" <<<\");\nlogger.warn(\">>> AD SCRIPT USER: \" + source.userName + \" <<<\");\nopenidm.decrypt(source.password);",
+                        "globals" : { }
+                    }
                 },
                 {
                     "source" : "userName",
                     "target" : "sAMAccountName",
                     "condition" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "false;"
+                        "source" : "false;",
+                        "globals" : { }
                     },
                     "transform" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "logger.warn(\">>> USERNAME: \" + source + \" <<<\");\nsource;"
+                        "source" : "logger.warn(\">>> USERNAME: \" + source + \" <<<\");\nsource;",
+                        "globals" : { }
                     }
                 }
             ],
             "displayName" : "managedUser_systemActivedirectoryAccount",
-            "consentRequired" : false,
             "correlationQuery" : [
                 {
-                    "linkQualifier" : "default",
                     "type" : "text/javascript",
+                    "source" : "logger.warn(\">>> SCRIPT AD Account (sAMAccountName): \" + source.userName + \" <<<\");\nvar qry = {'_queryFilter': 'sAMAccountName eq \\\"' + source.userName + '\\\"'}; \nqry;",
                     "globals" : { },
-                    "source" : "logger.warn(\">>> SCRIPT AD Account (sAMAccountName): \" + source.userName + \" <<<\");\nvar qry = {'_queryFilter': 'sAMAccountName eq \\\"' + source.userName + '\\\"'}; \nqry;"
+                    "linkQualifier" : "default"
                 }
-            ]
+            ],
+            "clusteredSourceReconEnabled" : true
         }
     ]
 }
