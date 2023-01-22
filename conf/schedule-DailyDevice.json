@@ -1,0 +1,18 @@
+{
+    "type" : "cron",
+    "isCron" : true,
+    "enabled" : true,
+    "endTime" : null,
+    "schedule" : "0 0 10 * * ?",
+    "timeZone" : null,
+    "persisted" : true,
+    "startTime" : null,
+    "invokeContext" : {
+        "action" : "reconcile",
+        "mapping" : "systemDevices__ACCOUNT___managedDevice"
+    },
+    "invokeService" : "sync",
+    "misfirePolicy" : "fireAndProceed",
+    "invokeLogLevel" : "info",
+    "concurrentExecution" : false
+}

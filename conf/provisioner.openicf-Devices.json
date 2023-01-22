@@ -1,0 +1,90 @@
+{
+    "enabled" : true,
+    "objectTypes" : {
+        "__ACCOUNT__" : {
+            "id" : "__ACCOUNT__",
+            "type" : "object",
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "nativeType" : "__ACCOUNT__",
+            "properties" : {
+                "owner" : {
+                    "type" : "string",
+                    "nativeName" : "owner",
+                    "nativeType" : "string"
+                },
+                "record" : {
+                    "type" : "string",
+                    "nativeName" : "record",
+                    "nativeType" : "string"
+                },
+                "__NAME__" : {
+                    "type" : "string",
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
+                },
+                "dateIssued" : {
+                    "type" : "string",
+                    "nativeName" : "dateIssued",
+                    "nativeType" : "string"
+                },
+                "deviceType" : {
+                    "type" : "string",
+                    "nativeName" : "deviceType",
+                    "nativeType" : "string"
+                },
+                "renewalDate" : {
+                    "type" : "string",
+                    "nativeName" : "renewalDate",
+                    "nativeType" : "string"
+                }
+            }
+        }
+    },
+    "connectorRef" : {
+        "bundleName" : "org.forgerock.openicf.connectors.csvfile-connector",
+        "systemType" : "provisioner.openicf",
+        "displayName" : "CSV File Connector",
+        "bundleVersion" : "1.5.20.9",
+        "connectorName" : "org.forgerock.openicf.csvfile.CSVFileConnector",
+        "connectorHostRef" : ""
+    },
+    "operationTimeout" : {
+        "GET" : -1,
+        "SYNC" : -1,
+        "TEST" : -1,
+        "CREATE" : -1,
+        "DELETE" : -1,
+        "SCHEMA" : -1,
+        "SEARCH" : -1,
+        "UPDATE" : -1,
+        "VALIDATE" : -1,
+        "AUTHENTICATE" : -1,
+        "RESOLVEUSERNAME" : -1,
+        "SCRIPT_ON_RESOURCE" : -1,
+        "SCRIPT_ON_CONNECTOR" : -1
+    },
+    "poolConfigOption" : {
+        "maxIdle" : 10,
+        "maxWait" : 150000,
+        "minIdle" : 1,
+        "maxObjects" : 10,
+        "minEvictableIdleTimeMillis" : 120000
+    },
+    "resultsHandlerConfig" : {
+        "enableCaseInsensitiveFilter" : false,
+        "enableFilteredResultsHandler" : false,
+        "enableNormalizingResultsHandler" : false,
+        "enableAttributesToGetSearchResultsHandler" : true
+    },
+    "configurationProperties" : {
+        "csvFile" : "&{idm.instance.dir}/data/devices.csv",
+        "headerUid" : "serialNumber",
+        "newlineString" : "\n",
+        "fieldDelimiter" : ",",
+        "headerPassword" : "password",
+        "quoteCharacter" : "\"",
+        "escapeCharacter" : "\\",
+        "spaceReplacementString" : "_",
+        "syncFileRetentionCount" : "3"
+    }
+}

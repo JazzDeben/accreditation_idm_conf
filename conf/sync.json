@@ -647,6 +647,188 @@
                 }
             ],
             "clusteredSourceReconEnabled" : true
+        },
+        {
+            "icon" : null,
+            "name" : "systemDevices__ACCOUNT___managedDevice",
+            "source" : "system/Devices/__ACCOUNT__",
+            "target" : "managed/device",
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "properties" : [
+                {
+                    "source" : "__NAME__",
+                    "target" : "serialNumber"
+                },
+                {
+                    "source" : "dateIssued",
+                    "target" : "dateIssued"
+                },
+                {
+                    "source" : "deviceType",
+                    "target" : "deviceType"
+                },
+                {
+                    "source" : "renewalDate",
+                    "target" : "renewalDate"
+                },
+                {
+                    "source" : "",
+                    "target" : "owner",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "if(source.owner != undefined){\n  logger.warn(\">>> SCRIPT OWNER: \" + source.owner + \" <<<\");\n  let query = \"userName eq \\\"\" + source.owner + \"\\\"\";\n  let owner = openidm.query(\"managed/user\", {\"_queryFilter\": query});\n  \n  if (owner.result.length > 0) {\n    logger.warn(\">>> SCRIPT OWNER userName: \" + owner.result[0].userName + \" <<<\");\n    ({ \"_ref\" : \"managed/user/\" + owner.result[0]._id});\n  }\n}                                             ",
+                        "globals" : { }
+                    }
+                }
+            ],
+            "displayName" : "systemDevices__ACCOUNT___managedDevice",
+            "consentRequired" : false
+        },
+        {
+            "icon" : null,
+            "name" : "systemDevicedetails__ACCOUNT___managedDevicedetai",
+            "source" : "system/DeviceDetails/__ACCOUNT__",
+            "target" : "managed/deviceDetails",
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "properties" : [
+                {
+                    "source" : "deviceType",
+                    "target" : "deviceType"
+                },
+                {
+                    "source" : "manufacturer",
+                    "target" : "manufacturer"
+                },
+                {
+                    "source" : "model",
+                    "target" : "model"
+                },
+                {
+                    "source" : "releaseDate",
+                    "target" : "releaseDate"
+                },
+                {
+                    "source" : "__NAME__",
+                    "target" : "supportContractIdentifier"
+                },
+                {
+                    "target" : "deviceSerial",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "if(source.contractNumber !== \"unassigned\")\n{\n  logger.warn(\">>> DEVICE DETAILS SETTING UP DEVICE SERIAL RELATIONSHIP: \" + source.contractNumber + \" <<<\");\n  let contractQuery = openidm.query(\"managed/device\", { \"_queryFilter\": \"serialNumber eq \\\"\" + source.contractNumber + \"\\\"\"});\n  \n  if(contractQuery.result.length > 0)\n  {\n    logger.warn(\">>> DEVICE DETAILS SETTING UP _ID: \" + contractQuery.result[0]._id + \" <<<\");\n\n    ( { _ref : \"managed/device/\" + contractQuery.result[0]._id });\n  }\n}"
+                    },
+                    "source" : ""
+                }
+            ],
+            "displayName" : "systemDevicedetails__ACCOUNT___managedDevicedetai",
+            "consentRequired" : false
         }
     ]
 }
