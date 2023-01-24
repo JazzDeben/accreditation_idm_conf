@@ -128,27 +128,25 @@
                         "source" : "source.givenName + ' ' + source.sn",
                         "globals" : { }
                     }
+                },
+                {
+                    "source" : "entryUUID",
+                    "target" : "employeeNumber"
                 }
             ],
             "displayName" : "systemPartnersAccount_systemWebportalAccount",
             "sourceQuery" : {
-                "_queryFilter" : "((/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\" or !(/userRole eq \"UNKNOWN\")) and /lastLoginTime ge \"20140101000000Z\" and (partnerOrg eq \"partner1.com\" or partnerOrg eq \"partner2.com\" or partnerOrg eq \"partner3.com\" or partnerOrg eq \"partner4.com\"))"
+                "_queryFilter" : "((/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\") and /lastLoginTime ge \"20140101000000Z\" and (/partnerOrg eq \"partner1.com\" or /partnerOrg eq \"partner2.com\" or /partnerOrg eq \"partner3.com\" or /partnerOrg eq \"partner4.com\"))"
             },
             "targetQuery" : {
-                "_queryFilter" : "(/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\" or !(/userRole eq \"UNKNOWN\"))"
+                "_queryFilter" : "(/userRole eq \"standard_user\" or /userRole eq \"power_user\" or /userRole eq \"lite_user\")"
             },
             "correlationQuery" : [
                 {
-                    "file" : "ui/correlateTreeToQueryFilter.js",
                     "type" : "text/javascript",
-                    "mapping" : "systemPartnersAccount_systemWebportalAccount",
-                    "linkQualifier" : "default",
-                    "expressionTree" : {
-                        "all" : [
-                            "uid",
-                            "userRole"
-                        ]
-                    }
+                    "source" : "let query = {_queryFilter : \"employeeNumber eq \\\"\" + source.entryUUID + \"\\\"\"};\nquery",
+                    "globals" : { },
+                    "linkQualifier" : "default"
                 }
             ],
             "reconSourceQueryPageSize" : 100,

@@ -89,18 +89,28 @@
             }
         },
         "account" : {
-            "$schema" : "http://json-schema.org/draft-03/schema",
-            "type" : "object",
             "id" : "__ACCOUNT__",
+            "type" : "object",
+            "$schema" : "http://json-schema.org/draft-03/schema",
             "nativeType" : "__ACCOUNT__",
             "properties" : {
+                "cn" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "string",
+                        "nativeType" : "string"
+                    },
+                    "required" : true,
+                    "nativeName" : "cn",
+                    "nativeType" : "string"
+                },
                 "dn" : {
                     "type" : "string",
-                    "required" : true,
-                    "nativeName" : "__NAME__",
-                    "nativeType" : "string",
                     "flags" : [ ],
-                    "runAsUser" : false
+                    "required" : true,
+                    "runAsUser" : false,
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
                 },
                 "sn" : {
                     "type" : "string",
@@ -129,6 +139,12 @@
                     "nativeName" : "ds-pwp-account-disabled",
                     "nativeType" : "string"
                 },
+                "userRole" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "userRole",
+                    "nativeType" : "string"
+                },
                 "aliasList" : {
                     "type" : "array",
                     "items" : {
@@ -137,6 +153,12 @@
                     },
                     "required" : false,
                     "nativeName" : "iplanet-am-user-alias-list",
+                    "nativeType" : "string"
+                },
+                "entryUUID" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "entryUUID",
                     "nativeType" : "string"
                 },
                 "givenName" : {
@@ -151,6 +173,12 @@
                         "nativeType" : "string"
                     },
                     "nativeName" : "ldapGroups",
+                    "nativeType" : "string"
+                },
+                "partnerOrg" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "partnerOrg",
                     "nativeType" : "string"
                 },
                 "description" : {
@@ -187,38 +215,22 @@
                     "nativeName" : "__PASSWORD__",
                     "nativeType" : "JAVA_TYPE_GUARDEDSTRING"
                 },
+                "lastLoginTime" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "lastLoginTime",
+                    "nativeType" : "string"
+                },
+                "employeeNumber" : {
+                    "type" : "string",
+                    "required" : false,
+                    "nativeName" : "employeeNumber",
+                    "nativeType" : "string"
+                },
                 "telephoneNumber" : {
                     "type" : "string",
                     "nativeName" : "telephoneNumber",
                     "nativeType" : "string"
-                },
-                "partnerOrg" : {
-                    "type" : "string",
-                    "nativeName" : "partnerOrg",
-                    "nativeType" : "string",
-                    "required" : false
-                },
-                "lastLoginTime" : {
-                    "type" : "string",
-                    "nativeName" : "lastLoginTime",
-                    "nativeType" : "string",
-                    "required" : false
-                },
-                "userRole" : {
-                    "type" : "string",
-                    "nativeName" : "userRole",
-                    "nativeType" : "string",
-                    "required" : false
-                },
-                "cn" : {
-                    "type" : "array",
-                    "items" : {
-                        "type" : "string",
-                        "nativeType" : "string"
-                    },
-                    "nativeName" : "cn",
-                    "nativeType" : "string",
-                    "required" : true
                 }
             }
         }
@@ -288,14 +300,14 @@
             "$crypto" : {
                 "type" : "x-simple-encryption",
                 "value" : {
-                    "cipher" : "AES/CBC/PKCS5Padding",
-                    "stableId" : "openidm-sym-default",
-                    "salt" : "laWI8izDyZJfODdTuGPT9Q==",
+                    "iv" : "gIwgCQJunzFNi6lk4+iRSw==",
+                    "mac" : "IK0N84XRwFGy4dJldigufg==",
                     "data" : "iBuIRfPUC2jMdWNVKJZnwA==",
+                    "salt" : "laWI8izDyZJfODdTuGPT9Q==",
+                    "cipher" : "AES/CBC/PKCS5Padding",
                     "keySize" : 16,
                     "purpose" : "idm.config.encryption",
-                    "iv" : "gIwgCQJunzFNi6lk4+iRSw==",
-                    "mac" : "IK0N84XRwFGy4dJldigufg=="
+                    "stableId" : "openidm-sym-default"
                 }
             }
         },
