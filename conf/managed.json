@@ -1081,8 +1081,8 @@
             },
             "postUpdate" : {
                 "type" : "text/javascript",
-                "globals" : { },
-                "source" : "logger.warn(\">>> SCRIPT MODIFY USER: \" + object.name + \" <<<\");\nlogger.warn(\">>> SCRIPT MODIFY USER: \" + object._id + \" <<<\");\n\nlet mail = object.mail;\nlet validMail = false;\n\nif (/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/.test(mail)){\n  logger.warn(\">>> SCRIPT MODIFY USER: EMAIL IS VALID <<<\");\n  validMail = true;\n} else {\n  logger.warn(\">>> SCRIPT MODIFY USER: EMAIL IS NOT VALID <<<\");\n  validMail = false;\n}\n\nopenidm.patch(\"managed/user/\" + object._id, null, [{\"operation\":\"replace\", \"field\":\"validMail\", \"value\":validMail}]);"
+                "source" : "logger.warn(\">>> SCRIPT MODIFY USER: \" + object.name + \" <<<\");\nlogger.warn(\">>> SCRIPT MODIFY USER: \" + object._id + \" <<<\");\n\nlet mail = object.mail;\nlet validMail = false;\n\nif (/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/.test(mail)){\n  logger.warn(\">>> SCRIPT MODIFY USER: EMAIL IS VALID <<<\");\n  validMail = true;\n} else {\n  logger.warn(\">>> SCRIPT MODIFY USER: EMAIL IS NOT VALID <<<\");\n  validMail = false;\n}\n\nopenidm.patch(\"managed/user/\" + object._id, null, [{\"operation\":\"replace\", \"field\":\"validMail\", \"value\":validMail}]);",
+                "globals" : { }
             },
             "notifications" : {
                 "property" : "_notifications"
@@ -1825,6 +1825,231 @@
                     }
                 },
                 "description" : "An organization or tenant, whose resources are managed by organizational admins."
+            }
+        },
+        {
+            "name" : "device",
+            "schema" : {
+                "icon" : "fa-dropbox",
+                "type" : "object",
+                "order" : [
+                    "deviceType",
+                    "owner",
+                    "serialNumber",
+                    "dateIssued",
+                    "renewalDate",
+                    "contractNumber"
+                ],
+                "title" : "Device",
+                "$schema" : "http://forgerock.org/json-schema#",
+                "required" : [
+                    "serialNumber"
+                ],
+                "properties" : {
+                    "owner" : {
+                        "type" : "relationship",
+                        "title" : "Owner",
+                        "validate" : false,
+                        "viewable" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string"
+                                    }
+                                }
+                            }
+                        },
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "resourceCollection" : [ ],
+                        "reversePropertyName" : null,
+                        "reverseRelationship" : false
+                    },
+                    "dateIssued" : {
+                        "type" : "string",
+                        "title" : "Date Issued",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "deviceType" : {
+                        "type" : "string",
+                        "title" : "Device Type",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "renewalDate" : {
+                        "type" : "string",
+                        "title" : "Renewal Date",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "serialNumber" : {
+                        "type" : "string",
+                        "title" : "Serial Number",
+                        "format" : null,
+                        "viewable" : true,
+                        "isVirtual" : false,
+                        "searchable" : true,
+                        "description" : null,
+                        "userEditable" : true
+                    },
+                    "contractNumber" : {
+                        "type" : "relationship",
+                        "title" : "Contract Number",
+                        "validate" : true,
+                        "viewable" : true,
+                        "notifySelf" : false,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string",
+                                        "propName" : "_id",
+                                        "required" : false
+                                    }
+                                }
+                            }
+                        },
+                        "searchable" : false,
+                        "description" : null,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/deviceDetails",
+                                "label" : "Devicedetails",
+                                "query" : {
+                                    "fields" : [
+                                        "manufacturer",
+                                        "model"
+                                    ],
+                                    "sortKeys" : [ ],
+                                    "queryFilter" : "true"
+                                },
+                                "notify" : false
+                            }
+                        ],
+                        "reversePropertyName" : "deviceSerial",
+                        "reverseRelationship" : true
+                    }
+                },
+                "description" : "A device"
+            }
+        },
+        {
+            "name" : "deviceDetails",
+            "schema" : {
+                "icon" : "fa-list-ul",
+                "type" : "object",
+                "order" : [
+                    "deviceType",
+                    "manufacturer",
+                    "model",
+                    "releaseDate",
+                    "supportContractIdentifier",
+                    "deviceSerial"
+                ],
+                "title" : "Device Details",
+                "$schema" : "http://forgerock.org/json-schema#",
+                "required" : [
+                    "supportContractIdentifier"
+                ],
+                "properties" : {
+                    "model" : {
+                        "type" : "string",
+                        "title" : "Model",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "deviceType" : {
+                        "type" : "string",
+                        "title" : "Device Type",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "releaseDate" : {
+                        "type" : "string",
+                        "title" : "Release Date",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "manufacturer" : {
+                        "type" : "string",
+                        "title" : "Manufacturer",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "supportContractIdentifier" : {
+                        "type" : "string",
+                        "title" : "Support Contract Identifier",
+                        "format" : null,
+                        "viewable" : true,
+                        "isVirtual" : false,
+                        "searchable" : true,
+                        "description" : null,
+                        "userEditable" : true
+                    },
+                    "deviceSerial" : {
+                        "description" : null,
+                        "title" : "Device Serial Number",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "type" : "relationship",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "contractNumber",
+                        "validate" : true,
+                        "notifySelf" : false,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string",
+                                        "propName" : "_id",
+                                        "required" : false
+                                    }
+                                }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/device",
+                                "label" : "Device",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "deviceType"
+                                    ],
+                                    "sortKeys" : [ ]
+                                },
+                                "notify" : false
+                            }
+                        ]
+                    }
+                },
+                "description" : "Details about a device"
             }
         }
     ]
