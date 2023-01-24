@@ -217,6 +217,12 @@
                     "nativeName" : "cn",
                     "nativeType" : "string",
                     "required" : false
+                },
+                "entryUUID" : {
+                    "type" : "string",
+                    "nativeName" : "entryUUID",
+                    "nativeType" : "string",
+                    "required" : false
                 }
             }
         }
