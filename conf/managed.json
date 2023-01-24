@@ -54,7 +54,8 @@
                     "zip",
                     "validNumber",
                     "validPhone",
-                    "validMail"
+                    "validMail",
+                    "hasDevices"
                 ],
                 "title" : "User",
                 "$schema" : "http://forgerock.org/json-schema#",
@@ -675,6 +676,51 @@
                         "searchable" : true,
                         "description" : null,
                         "userEditable" : true
+                    },
+                    "hasDevices" : {
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "_id" : {
+                                            "type" : "string",
+                                            "propName" : "_id",
+                                            "required" : false
+                                        }
+                                    }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/device",
+                                    "label" : "Device",
+                                    "query" : {
+                                        "fields" : [
+                                            "contractNumber"
+                                        ],
+                                        "sortKeys" : [ ],
+                                        "queryFilter" : "true"
+                                    },
+                                    "notify" : false
+                                }
+                            ],
+                            "reversePropertyName" : "owner",
+                            "reverseRelationship" : true
+                        },
+                        "title" : "Hasdevices",
+                        "viewable" : true,
+                        "notifySelf" : false,
+                        "searchable" : false,
+                        "description" : "",
+                        "userEditable" : false,
+                        "returnByDefault" : false
                     },
                     "ownerOfOrg" : {
                         "type" : "array",
@@ -1849,8 +1895,9 @@
                     "owner" : {
                         "type" : "relationship",
                         "title" : "Owner",
-                        "validate" : false,
+                        "validate" : true,
                         "viewable" : true,
+                        "notifySelf" : false,
                         "properties" : {
                             "_ref" : {
                                 "type" : "string"
@@ -1859,17 +1906,34 @@
                                 "type" : "object",
                                 "properties" : {
                                     "_id" : {
-                                        "type" : "string"
+                                        "type" : "string",
+                                        "propName" : "_id",
+                                        "required" : false
                                     }
                                 }
                             }
                         },
                         "searchable" : false,
+                        "description" : null,
                         "userEditable" : false,
                         "returnByDefault" : false,
-                        "resourceCollection" : [ ],
-                        "reversePropertyName" : null,
-                        "reverseRelationship" : false
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "label" : "User",
+                                "query" : {
+                                    "fields" : [
+                                        "givenName",
+                                        "sn"
+                                    ],
+                                    "sortKeys" : [ ],
+                                    "queryFilter" : "true"
+                                },
+                                "notify" : false
+                            }
+                        ],
+                        "reversePropertyName" : "hasDevices",
+                        "reverseRelationship" : true
                     },
                     "dateIssued" : {
                         "type" : "string",
@@ -1989,34 +2053,11 @@
                         "searchable" : true,
                         "userEditable" : true
                     },
-                    "manufacturer" : {
-                        "type" : "string",
-                        "title" : "Manufacturer",
-                        "viewable" : true,
-                        "searchable" : true,
-                        "userEditable" : true
-                    },
-                    "supportContractIdentifier" : {
-                        "type" : "string",
-                        "title" : "Support Contract Identifier",
-                        "format" : null,
-                        "viewable" : true,
-                        "isVirtual" : false,
-                        "searchable" : true,
-                        "description" : null,
-                        "userEditable" : true
-                    },
                     "deviceSerial" : {
-                        "description" : null,
-                        "title" : "Device Serial Number",
-                        "viewable" : true,
-                        "searchable" : false,
-                        "userEditable" : false,
-                        "returnByDefault" : false,
                         "type" : "relationship",
-                        "reverseRelationship" : true,
-                        "reversePropertyName" : "contractNumber",
+                        "title" : "Device Serial Number",
                         "validate" : true,
+                        "viewable" : true,
                         "notifySelf" : false,
                         "properties" : {
                             "_ref" : {
@@ -2033,20 +2074,43 @@
                                 }
                             }
                         },
+                        "searchable" : false,
+                        "description" : null,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
                         "resourceCollection" : [
                             {
                                 "path" : "managed/device",
                                 "label" : "Device",
                                 "query" : {
-                                    "queryFilter" : "true",
                                     "fields" : [
                                         "deviceType"
                                     ],
-                                    "sortKeys" : [ ]
+                                    "sortKeys" : [ ],
+                                    "queryFilter" : "true"
                                 },
                                 "notify" : false
                             }
-                        ]
+                        ],
+                        "reversePropertyName" : "contractNumber",
+                        "reverseRelationship" : true
+                    },
+                    "manufacturer" : {
+                        "type" : "string",
+                        "title" : "Manufacturer",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "supportContractIdentifier" : {
+                        "type" : "string",
+                        "title" : "Support Contract Identifier",
+                        "format" : null,
+                        "viewable" : true,
+                        "isVirtual" : false,
+                        "searchable" : true,
+                        "description" : null,
+                        "userEditable" : true
                     }
                 },
                 "description" : "Details about a device"
